@@ -1,0 +1,229 @@
+{
+  "network": {
+    "name": "StreamChain Node 0",
+    "role": "bootstrap-readonly",
+    "deployment": "vercel",
+    "costProfile": "zero-initial-cost",
+    "storage": "none",
+    "database": "none",
+    "persistence": "static-seed-only",
+    "writesEnabled": false,
+    "nodeOperators": [
+      "self-hosted community nodes"
+    ],
+    "acceptedMediaMode": "external-url-only",
+    "notes": [
+      "Vercel node 0 only publishes bootstrap state and network rules.",
+      "Community nodes are responsible for storing media and handling write traffic.",
+      "Node 0 deliberately avoids S3, R2, paid databases and background workers."
+    ]
+  },
+  "manifest": {
+    "capabilities": [
+      "bootstrap chain snapshot",
+      "network manifest",
+      "read-only explorer",
+      "client-side draft hashing",
+      "external media URL previews",
+      "marketplace preview",
+      "economics preview"
+    ],
+    "disabled": [
+      "centralized uploads",
+      "server-side media persistence",
+      "paid object storage",
+      "paid database",
+      "background sync workers"
+    ],
+    "monetization": [
+      "transaction fees on self-hosted write nodes",
+      "approved video marketplace",
+      "wallet-to-wallet content purchases",
+      "creator royalties on purchases",
+      "managed community nodes later"
+    ]
+  },
+  "economics": {
+    "transactionFeeRate": 0.01,
+    "marketplaceFeeRate": 0.05,
+    "creatorRoyaltyRate": 0.1,
+    "royaltyEnabled": true,
+    "treasuryBalance": 12.5,
+    "updatedAt": "2026-03-20T01:00:00.000Z"
+  },
+  "contact": {
+    "headline": "Paso 9 · Abre un canal directo para soporte, partnerships y feedback",
+    "supportEmail": "support@example.com",
+    "businessEmail": "partners@example.com",
+    "docsUrl": "/#instalacion",
+    "supportUrl": "mailto:support@example.com?subject=StreamChain%20support",
+    "partnershipUrl": "mailto:partners@example.com?subject=StreamChain%20partnership",
+    "discordUrl": "https://discord.com/invite/example",
+    "telegramUrl": "https://t.me/example",
+    "calendlyUrl": "https://calendly.com/example/streamchain-intro",
+    "responseSla": "48h",
+    "timezone": "UTC"
+  },
+  "roadmap": [
+    {
+      "title": "Bootstrap público gratis",
+      "status": "done",
+      "summary": "Node 0 publica génesis, explorer y manifiesto sin depender de storage pago."
+    },
+    {
+      "title": "Nodos self-hosted con escritura",
+      "status": "done",
+      "summary": "La comunidad corre uploads, validación humana, minado, balances y sync entre peers."
+    },
+    {
+      "title": "Marketplace de videos aprobados",
+      "status": "done",
+      "summary": "Los videos aprobados pueden listarse y venderse entre wallets con settlement on-chain."
+    },
+    {
+      "title": "Economía y reputación avanzada",
+      "status": "done",
+      "summary": "Ahora el nodo expone métricas históricas públicas, scoring compuesto por wallet y ownership transfer real para habilitar reventas/secondary market."
+    },
+    {
+      "title": "Paso 9 · Contacto y partnerships",
+      "status": "done",
+      "summary": "Node 0 ya expone canales públicos configurables para soporte, feedback operativo, demos y alianzas desde la UI y el manifiesto."
+    }
+  ],
+  "chain": [
+    {
+      "id": "0",
+      "hash": "000-streamchain-genesis-node0",
+      "prevHash": "000-streamchain-genesis-node0",
+      "timestamp": "2026-03-20T00:00:00.000Z",
+      "type": "genesis",
+      "uploader": "network",
+      "validator": "node0",
+      "mediaUrl": "https://example.com/genesis",
+      "summary": "Bootstrap block for the Vercel read-only node."
+    },
+    {
+      "id": "1",
+      "hash": "000-curated-open-video",
+      "prevHash": "000-streamchain-genesis-node0",
+      "timestamp": "2026-03-20T00:05:00.000Z",
+      "type": "video",
+      "uploader": "creator-demo",
+      "validator": "community-node-alpha",
+      "mediaUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+      "summary": "Example approved external video reference."
+    },
+    {
+      "id": "2",
+      "hash": "000-curated-market-listing",
+      "prevHash": "000-curated-open-video",
+      "timestamp": "2026-03-20T00:10:00.000Z",
+      "type": "listing",
+      "uploader": "creator-demo",
+      "validator": "marketplace",
+      "mediaUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+      "summary": "Example marketplace listing published by a community node."
+    },
+    {
+      "id": "3",
+      "hash": "000-curated-market-purchase",
+      "prevHash": "000-curated-market-listing",
+      "timestamp": "2026-03-20T00:45:00.000Z",
+      "type": "purchase",
+      "uploader": "collector-beta",
+      "validator": "creator-demo",
+      "mediaUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+      "summary": "Example purchase showing seller payout, creator royalty and node fee."
+    }
+  ],
+  "featuredVideos": [
+    {
+      "title": "Node 0 demo video",
+      "url": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+      "owner": "creator-demo",
+      "ownerAddress": "demo-wallet-creator",
+      "creatorName": "creator-demo",
+      "creatorAddress": "demo-wallet-creator",
+      "proof": "sha256:demo-proof-node0"
+    },
+    {
+      "title": "Community hosted memory",
+      "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      "owner": "community-node-beta",
+      "ownerAddress": "demo-wallet-memory",
+      "creatorName": "community-node-beta",
+      "creatorAddress": "demo-wallet-memory",
+      "proof": "sha256:demo-proof-memory"
+    }
+  ],
+  "listings": [
+    {
+      "id": "demo-listing-1",
+      "videoProof": "sha256:demo-proof-node0",
+      "title": "Node 0 demo video",
+      "mediaUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+      "sellerName": "creator-demo",
+      "sellerAddress": "demo-wallet-creator",
+      "creatorName": "creator-demo",
+      "creatorAddress": "demo-wallet-creator",
+      "amount": 4,
+      "currency": "SCH",
+      "description": "Ejemplo de listing premium para licenciar un video ya aprobado por TrueWork.",
+      "createdAt": "2026-03-20T00:10:00.000Z",
+      "status": "active",
+      "purchaseCount": 2,
+      "lastPurchasedAt": "2026-03-20T00:45:00.000Z",
+      "purchaseHistory": [
+        {
+          "id": "demo-purchase-2",
+          "buyerName": "collector-beta",
+          "buyerAddress": "demo-wallet-buyer-2",
+          "sellerName": "creator-demo",
+          "sellerAddress": "demo-wallet-creator",
+          "creatorName": "creator-demo",
+          "creatorAddress": "demo-wallet-creator",
+          "grossAmount": 4,
+          "sellerAmount": 3.6,
+          "royaltyAmount": 0,
+          "marketplaceFeeAmount": 0.4,
+          "purchasedAt": "2026-03-20T00:45:00.000Z",
+          "transactionId": "demo-chain-purchase-2"
+        },
+        {
+          "id": "demo-purchase-1",
+          "buyerName": "collector-alpha",
+          "buyerAddress": "demo-wallet-buyer-1",
+          "sellerName": "creator-demo",
+          "sellerAddress": "demo-wallet-creator",
+          "creatorName": "creator-demo",
+          "creatorAddress": "demo-wallet-creator",
+          "grossAmount": 4,
+          "sellerAmount": 3.6,
+          "royaltyAmount": 0,
+          "marketplaceFeeAmount": 0.4,
+          "purchasedAt": "2026-03-20T00:30:00.000Z",
+          "transactionId": "demo-chain-purchase-1"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "activeListings": 1,
+    "soldListings": 1,
+    "marketplaceVolume": 13,
+    "primarySales": 1,
+    "resaleSales": 1,
+    "royaltiesPaid": 1,
+    "transferFeesCollected": 0.3,
+    "marketplaceFeesCollected": 0.65,
+    "totalFeeRevenue": 0.95,
+    "uniqueCollectors": 2,
+    "uniqueCreators": 1,
+    "ownershipTransfers": 2,
+    "averagePrimarySalePrice": 5,
+    "averageResalePrice": 8,
+    "topReputationScore": 14,
+    "lastMarketActivityAt": "2026-03-20T00:45:00.000Z"
+  }
+}

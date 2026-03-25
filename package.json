@@ -1,0 +1,22 @@
+{
+  "name": "streamchain-node0",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "node ./scripts/start-self-hosted.mjs",
+    "lint": "node ./scripts/lint.mjs",
+    "test": "node --import ./tests/register-loader.mjs --test ./tests/*.test.mjs",
+    "backup:self-hosted": "node ./scripts/backup-self-hosted.mjs",
+    "restore:self-hosted": "node ./scripts/restore-self-hosted.mjs",
+    "sbom": "node ./scripts/generate-sbom.mjs",
+    "policy-check": "node ./scripts/policy-check.mjs"
+  },
+  "dependencies": {
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  }
+}

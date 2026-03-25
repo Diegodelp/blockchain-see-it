@@ -1,0 +1,31 @@
+services:
+  streamchain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3000:3000"
+    environment:
+      STREAMCHAIN_NODE_MODE: self-hosted
+      STREAMCHAIN_STORAGE_DIR: /app/storage
+      STREAMCHAIN_KEYSTORE_DIR: /app/keystore
+      STREAMCHAIN_BACKUP_DIR: /app/backups
+      STREAMCHAIN_AUTO_NGROK: "false"
+      STREAMCHAIN_AUTO_NODE0_REGISTER: "false"
+    volumes:
+      - streamchain-storage:/app/storage
+      - streamchain-keystore:/app/keystore
+      - streamchain-backups:/app/backups
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r)=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  streamchain-storage:
+  streamchain-keystore:
+  streamchain-backups:
