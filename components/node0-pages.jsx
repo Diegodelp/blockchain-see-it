@@ -97,10 +97,9 @@ function Node0Shell({ title, description, badge, children }) {
       <header className="minimalHeader">
         <a className="minimalBrand" href="/">StreamChain</a>
         <nav className="minimalNav" aria-label="Node0 primary">
-          <a href="/node0">Home</a>
+          <a href="/">Home</a>
           <a href="/node0/install">Install</a>
           <a href="/node0/network">Network</a>
-          <a href="/node0/contact">Contact</a>
         </nav>
       </header>
       <section className="hero heroSplit node0Hero">
