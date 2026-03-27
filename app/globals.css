@@ -46,7 +46,7 @@ a {
 
 .hero {
   padding: 36px;
-  border-radius: 28px;
+  border-radius: 0;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 24px;
@@ -67,7 +67,7 @@ a {
 .proofBox {
   border: 1px solid rgba(124, 226, 211, 0.15);
   background: rgba(6, 17, 33, 0.7);
-  border-radius: 20px;
+  border-radius: 0;
   padding: 20px;
 }
 
@@ -83,7 +83,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 999px;
+  border-radius: 0;
   padding: 8px 12px;
   background: rgba(124, 226, 211, 0.12);
   color: var(--accent);
@@ -110,7 +110,7 @@ a {
 }
 
 .statCard {
-  border-radius: 20px;
+  border-radius: 0;
   padding: 20px;
 }
 
@@ -125,7 +125,7 @@ a {
 }
 
 .panel {
-  border-radius: 24px;
+  border-radius: 0;
   padding: 28px;
   margin-top: 24px;
 }
@@ -152,7 +152,7 @@ a {
   justify-content: space-between;
   gap: 24px;
   border: 1px solid rgba(130, 170, 255, 0.12);
-  border-radius: 18px;
+  border-radius: 0;
   padding: 18px 20px;
   background: rgba(4, 11, 24, 0.78);
 }
@@ -191,7 +191,7 @@ label {
 
 input {
   border: 1px solid rgba(130, 170, 255, 0.16);
-  border-radius: 14px;
+  border-radius: 0;
   padding: 14px 16px;
   background: rgba(4, 11, 24, 0.84);
   color: var(--text);
@@ -199,7 +199,7 @@ input {
 
 select {
   border: 1px solid rgba(130, 170, 255, 0.16);
-  border-radius: 14px;
+  border-radius: 0;
   padding: 14px 16px;
   background: rgba(4, 11, 24, 0.84);
   color: var(--text);
@@ -207,7 +207,7 @@ select {
 
 .primaryButton {
   border: none;
-  border-radius: 14px;
+  border-radius: 0;
   padding: 14px 18px;
   background: linear-gradient(135deg, var(--accent-strong), var(--accent));
   color: #041018;
@@ -315,7 +315,7 @@ select {
   gap: 16px;
   padding: 10px 14px;
   border: 1px solid rgba(255, 140, 90, 0.22);
-  border-radius: 999px;
+  border-radius: 0;
   background: rgba(18, 9, 27, 0.72);
   backdrop-filter: blur(10px);
   position: sticky;
@@ -344,7 +344,7 @@ select {
   font-size: 0.78rem;
   opacity: 0.95;
   border: 1px solid rgba(255, 140, 90, 0.22);
-  border-radius: 999px;
+  border-radius: 0;
   padding: 7px 11px;
   background: rgba(255, 140, 90, 0.07);
 }
@@ -358,7 +358,7 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 0;
   padding: 14px 18px;
   border: 1px solid rgba(124, 226, 211, 0.25);
   background: rgba(124, 226, 211, 0.08);
@@ -406,7 +406,7 @@ select {
 .endpointBadge {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: 0;
   padding: 8px 12px;
   border: 1px solid rgba(130, 170, 255, 0.2);
   color: #d7e2ff;
@@ -446,7 +446,7 @@ select {
 .servicePill {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: 0;
   padding: 8px 12px;
   border: 1px solid rgba(124, 226, 211, 0.28);
   background: rgba(7, 25, 34, 0.7);
@@ -521,7 +521,7 @@ select {
 
 .mediaCard {
   margin: 0;
-  border-radius: 18px;
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 140, 90, 0.28);
   background: rgba(19, 10, 33, 0.8);
@@ -547,7 +547,7 @@ select {
   gap: 12px;
   min-height: 100%;
   border: 1px solid rgba(130, 170, 255, 0.14);
-  border-radius: 20px;
+  border-radius: 0;
   padding: 22px;
   background: linear-gradient(180deg, rgba(9, 20, 37, 0.94), rgba(6, 14, 27, 0.88));
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
@@ -654,7 +654,7 @@ select {
   gap: 16px;
   padding: 22px;
   border: 1px solid var(--panel-border);
-  border-radius: 24px;
+  border-radius: 0;
   background: rgba(8, 17, 32, 0.94);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
 }
@@ -675,7 +675,7 @@ select {
   align-items: center;
   min-height: 42px;
   padding: 10px 14px;
-  border-radius: 14px;
+  border-radius: 0;
   color: var(--text);
   text-decoration: none;
   background: rgba(124, 226, 211, 0.06);
@@ -690,7 +690,7 @@ select {
 .appSidebarCard,
 .appTopbar {
   border: 1px solid rgba(130, 170, 255, 0.14);
-  border-radius: 20px;
+  border-radius: 0;
   background: rgba(8, 17, 32, 0.92);
 }
 
@@ -731,18 +731,25 @@ select {
   isolation: isolate;
 }
 
-.chainBackdrop {
-  position: absolute;
-  inset: -40px -20px auto;
-  height: 320px;
+.chainThreeBackdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 55vh;
   z-index: -1;
-  overflow: hidden;
   pointer-events: none;
+  opacity: 0.82;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 82%);
+}
+
+.chainThreeBackdrop canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .chainOrb {
   position: absolute;
-  border-radius: 999px;
+  border-radius: 0;
   filter: blur(0.5px);
   opacity: 0.55;
   animation: floatChain 11s ease-in-out infinite;

@@ -1,3 +1,5 @@
+import { ChainBackgroundThree } from './chain-background-three';
+
 function formatDate(value) {
   return value ? new Date(value).toLocaleString('es-AR') : '—';
 }
@@ -91,11 +93,7 @@ function ContactCard({ label, href, detail }) {
 function Node0Shell({ title, description, badge, children }) {
   return (
     <div className="node0Site chainExperience chainExperienceNode0">
-      <div className="chainBackdrop" aria-hidden="true">
-        <span className="chainOrb chainOrbA" />
-        <span className="chainOrb chainOrbB" />
-        <span className="chainGrid" />
-      </div>
+      <ChainBackgroundThree />
       <header className="minimalHeader">
         <a className="minimalBrand" href="/">StreamChain</a>
         <nav className="minimalNav" aria-label="Node0 primary">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ChainBackgroundThree } from './chain-background-three';
 
 const GENESIS_NODE0_URL = 'https://blockchain-gilt-rho.vercel.app';
 
@@ -336,11 +337,7 @@ export function FullNodeWeb({ initialState }) {
 
   return (
     <div className="appShell chainExperience chainExperienceSelfHosted">
-      <div className="chainBackdrop" aria-hidden="true">
-        <span className="chainOrb chainOrbA" />
-        <span className="chainOrb chainOrbB" />
-        <span className="chainGrid" />
-      </div>
+      <ChainBackgroundThree />
       <aside className="appSidebar">
         <div className="appSidebarBrand">
           <p className="eyebrow">StreamChain OS</p>
