@@ -82,6 +82,22 @@ test('createSelfHostedBundle excludes runtime-heavy paths and keeps app files', 
   }
 });
 
+test('createSelfHostedBundle default root does not depend on process cwd', async () => {
+  const originalCwd = process.cwd();
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), 'streamchain-cwd-'));
+
+  try {
+    process.chdir(tempDir);
+    const archive = await createSelfHostedBundle();
+    const entries = listTarEntries(gunzipSync(archive));
+
+    assert.ok(entries.includes('app/page.jsx'));
+  } finally {
+    process.chdir(originalCwd);
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
 test('parseEnvAssignments respects existing env vars and strips quotes/comments', () => {
   const targetEnv = { KEEP_ME: 'original' };
   const applied = parseEnvAssignments(`
