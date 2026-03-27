@@ -430,7 +430,7 @@ export function FullNodeWeb({ initialState }) {
           <figcaption>Operator cockpit for blockchain operations</figcaption>
         </figure>
         <figure className="mediaCard">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=80" alt="Digital wallet and code display" />
+          <img loading="lazy" src="https://picsum.photos/id/1025/1200/800" alt="Digital wallet and code display" />
           <figcaption>Wallet and settlement workflows</figcaption>
         </figure>
         <figure className="mediaCard">

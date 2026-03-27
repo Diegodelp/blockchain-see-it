@@ -3,8 +3,8 @@
 import { useEffect, useRef } from 'react';
 
 const NODE_COUNT = 72;
-const LINK_DISTANCE = 0.26;
-const PACKET_COUNT = 28;
+const LINK_DISTANCE = 0.42;
+const PACKET_COUNT = 38;
 const THREE_CDN = 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js';
 
 function loadThreeGlobal() {
@@ -93,7 +93,7 @@ export function ChainBackgroundThree() {
       const lineGeometry = new THREE.BufferGeometry();
       lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
       lineGeometry.setDrawRange(0, 0);
-      const lineMaterial = new THREE.LineBasicMaterial({ color: '#ff5d9e', transparent: true, opacity: 0.24 });
+      const lineMaterial = new THREE.LineBasicMaterial({ color: '#ff8fbf', transparent: true, opacity: 0.58 });
       const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
       scene.add(lines);
 
@@ -101,7 +101,7 @@ export function ChainBackgroundThree() {
       const packetGeometry = new THREE.BufferGeometry();
       packetGeometry.setAttribute('position', new THREE.BufferAttribute(packetPositions, 3));
       packetGeometry.setDrawRange(0, PACKET_COUNT * 2);
-      const packetMaterial = new THREE.LineBasicMaterial({ color: '#ffd9c8', transparent: true, opacity: 0.92 });
+      const packetMaterial = new THREE.LineBasicMaterial({ color: '#fff0de', transparent: true, opacity: 0.98 });
       const packets = new THREE.LineSegments(packetGeometry, packetMaterial);
       scene.add(packets);
 

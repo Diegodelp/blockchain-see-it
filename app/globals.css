@@ -735,11 +735,11 @@ select {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 55vh;
+  height: 70vh;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.82;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 82%);
+  opacity: 1;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 88%);
 }
 
 .chainThreeBackdrop canvas {

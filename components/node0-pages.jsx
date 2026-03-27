@@ -184,7 +184,7 @@ export function Node0LandingPage({ state, references }) {
           <figcaption>Decentralized network surface</figcaption>
         </figure>
         <figure className="mediaCard">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1642052502485-2f7f7620b3ab?auto=format&fit=crop&w=1200&q=80" alt="Server racks in datacenter" />
+          <img loading="lazy" src="https://picsum.photos/id/1015/1200/800" alt="Server racks in datacenter" />
           <figcaption>Self-hosted infrastructure ready</figcaption>
         </figure>
         <figure className="mediaCard">
