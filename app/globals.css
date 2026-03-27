@@ -731,12 +731,17 @@ select {
   isolation: isolate;
 }
 
+.chainExperience > :not(.chainThreeBackdrop) {
+  position: relative;
+  z-index: 1;
+}
+
 .chainThreeBackdrop {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 70vh;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   opacity: 1;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 88%);

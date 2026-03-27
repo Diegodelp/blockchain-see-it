@@ -7,6 +7,104 @@ const LINK_DISTANCE = 0.42;
 const PACKET_COUNT = 38;
 const THREE_CDN = 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js';
 
+function startCanvasFallback(mount) {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  if (!context) {
+    return () => {};
+  }
+
+  const nodes = Array.from({ length: 42 }, () => ({
+    x: Math.random(),
+    y: Math.random() * 0.9,
+    vx: (Math.random() - 0.5) * 0.0015,
+    vy: (Math.random() - 0.5) * 0.0012,
+  }));
+
+  const packets = Array.from({ length: 22 }, () => ({
+    from: Math.floor(Math.random() * nodes.length),
+    to: Math.floor(Math.random() * nodes.length),
+    progress: Math.random(),
+    speed: 0.004 + (Math.random() * 0.005),
+  }));
+
+  const resize = () => {
+    canvas.width = mount.clientWidth;
+    canvas.height = mount.clientHeight;
+  };
+
+  resize();
+  mount.appendChild(canvas);
+  window.addEventListener('resize', resize);
+
+  let frame;
+  const draw = () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const node of nodes) {
+      node.x += node.vx;
+      node.y += node.vy;
+      if (node.x < 0 || node.x > 1) node.vx *= -1;
+      if (node.y < 0 || node.y > 1) node.vy *= -1;
+    }
+
+    context.strokeStyle = 'rgba(255, 158, 196, 0.45)';
+    context.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i += 1) {
+      for (let j = i + 1; j < nodes.length; j += 1) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt((dx * dx) + (dy * dy));
+        if (dist < 0.18) {
+          context.beginPath();
+          context.moveTo(nodes[i].x * canvas.width, nodes[i].y * canvas.height);
+          context.lineTo(nodes[j].x * canvas.width, nodes[j].y * canvas.height);
+          context.stroke();
+        }
+      }
+    }
+
+    for (const packet of packets) {
+      packet.progress += packet.speed;
+      if (packet.progress >= 1) {
+        packet.from = packet.to;
+        packet.to = (packet.from + 1 + Math.floor(Math.random() * 5)) % nodes.length;
+        packet.progress = 0;
+      }
+
+      const from = nodes[packet.from];
+      const to = nodes[packet.to];
+      const x = from.x + ((to.x - from.x) * packet.progress);
+      const y = from.y + ((to.y - from.y) * packet.progress);
+
+      context.strokeStyle = 'rgba(255, 241, 228, 0.95)';
+      context.beginPath();
+      context.moveTo(from.x * canvas.width, from.y * canvas.height);
+      context.lineTo(x * canvas.width, y * canvas.height);
+      context.stroke();
+    }
+
+    context.fillStyle = 'rgba(255, 182, 156, 0.95)';
+    for (const node of nodes) {
+      context.beginPath();
+      context.arc(node.x * canvas.width, node.y * canvas.height, 2.1, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    frame = window.requestAnimationFrame(draw);
+  };
+
+  draw();
+
+  return () => {
+    window.cancelAnimationFrame(frame);
+    window.removeEventListener('resize', resize);
+    if (mount.contains(canvas)) {
+      mount.removeChild(canvas);
+    }
+  };
+}
+
 function loadThreeGlobal() {
   if (typeof window === 'undefined') {
     return Promise.reject(new Error('No window available'));
@@ -259,7 +357,9 @@ export function ChainBackgroundThree() {
           mount.removeChild(renderer.domElement);
         }
       };
-    }).catch(() => {});
+    }).catch(() => {
+      cleanup = startCanvasFallback(mount);
+    });
 
     return () => {
       mounted = false;

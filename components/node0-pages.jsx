@@ -66,13 +66,13 @@ function StatCard({ label, value, detail }) {
   );
 }
 
-function PageCard({ title, description, href, detail }) {
+function PageCard({ title, description, href, detail, actionLabel = 'Abrir' }) {
   return (
     <article className="actionCard">
       <strong>{title}</strong>
       <p className="muted">{description}</p>
       {detail ? <p className="actionDetail">{detail}</p> : null}
-      <a className="primaryButton" href={href}>Abrir página</a>
+      <a className="primaryButton" href={href}>{actionLabel}</a>
     </article>
   );
 }
@@ -150,18 +150,21 @@ export function Node0LandingPage({ state, references }) {
       description: 'Una página dedicada para descargar el bundle, configurar variables y levantar un nodo con criterio operativo.',
       detail: 'Pensada para equipos técnicos y operadores que necesitan un paso a paso claro.',
       href: '/node0/install',
+      actionLabel: 'Ver instalación',
     },
     {
       title: 'Network & peers',
       description: 'Vista ejecutiva de peers, estado de red y operación read-only del node0.',
       detail: 'Útil para revisar salud de la red sin entrar al full node.',
       href: '/node0/network',
+      actionLabel: 'Ver estado de red',
     },
     {
       title: 'Contacto y go-to-market',
       description: 'Canales públicos para soporte, partnerships, demos y onboarding comercial.',
       detail: 'Un único hub para soporte, ventas técnicas y demos.',
       href: '/node0/contact',
+      actionLabel: 'Abrir canales',
     },
   ];
 
@@ -184,7 +187,7 @@ export function Node0LandingPage({ state, references }) {
           <figcaption>Decentralized network surface</figcaption>
         </figure>
         <figure className="mediaCard">
-          <img loading="lazy" src="https://picsum.photos/id/1015/1200/800" alt="Server racks in datacenter" />
+          <img loading="lazy" src="/blockchain-grid.svg" alt="Blockchain network visual" />
           <figcaption>Self-hosted infrastructure ready</figcaption>
         </figure>
         <figure className="mediaCard">
@@ -247,9 +250,9 @@ export function Node0InstallPage({ state }) {
       <section className="panel">
         <SectionHeader eyebrow="Deployment" title="Instalación guiada" description="Una sola página pensada para el operador técnico, con el bundle, la configuración mínima y los comandos de arranque principales." badge="3 steps" />
         <div className="actionGrid actionGridThree">
-          <PageCard title="1. Descarga el bundle" description="Obtén el paquete base del self-hosted listo para desplegar." detail="Incluye app, APIs, scripts y layout operacional." href="/api/install/self-hosted" />
-          <PageCard title="2. Configura el entorno" description="Define modo, storage, claves y fees antes de arrancar." detail="Variables base: `STREAMCHAIN_NODE_MODE=self-hosted` y `STREAMCHAIN_STORAGE_DIR=./storage`." href="/node0/install" />
-          <PageCard title="3. Arranca el servicio" description="Levanta el nodo con Docker o Node.js y habilita la experiencia completa." detail="Ejemplos: `docker compose up --build` y `npm install && npm run dev`." href="/node0/install" />
+          <PageCard title="1. Descarga el bundle" description="Obtén el paquete base del self-hosted listo para desplegar." detail="Incluye app, APIs, scripts y layout operacional." href="/api/install/self-hosted" actionLabel="Descargar bundle" />
+          <PageCard title="2. Configura el entorno" description="Define modo, storage, claves y fees antes de arrancar." detail="Variables base: `STREAMCHAIN_NODE_MODE=self-hosted` y `STREAMCHAIN_STORAGE_DIR=./storage`." href="/node0/install" actionLabel="Abrir guía de variables" />
+          <PageCard title="3. Arranca el servicio" description="Levanta el nodo con Docker o Node.js y habilita la experiencia completa." detail="Ejemplos: `docker compose up --build` y `npm install && npm run dev`." href="/node0/install" actionLabel="Ver comandos de arranque" />
         </div>
         <div className="twoColumns">
           <div className="proofBox">

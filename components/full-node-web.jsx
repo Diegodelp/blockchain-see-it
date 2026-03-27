@@ -59,13 +59,13 @@ function QuickNav() {
   );
 }
 
-function ActionCard({ title, description, detail, href }) {
+function ActionCard({ title, description, detail, href, ctaLabel = 'Ir a la sección' }) {
   return (
     <article className="actionCard">
       <strong>{title}</strong>
       <p className="muted">{description}</p>
       {detail ? <p className="actionDetail">{detail}</p> : null}
-      <a className="ghostButton" href={href}>Ir a la sección</a>
+      <a className="ghostButton" href={href}>{ctaLabel}</a>
     </article>
   );
 }
@@ -302,24 +302,28 @@ export function FullNodeWeb({ initialState }) {
       description: 'Entiende fees, tesorería, peers y el registro con node0 antes de ejecutar acciones.',
       detail: 'Ideal para onboarding técnico y lectura ejecutiva.',
       href: '#operating-model',
+      ctaLabel: 'Ver modelo',
     },
     {
       title: 'Operar wallets y pagos',
       description: 'Crea wallets, mueve SCH y prueba la economía del nodo desde el navegador.',
       detail: 'Secciones: wallets y transferencias.',
       href: '#wallets',
+      ctaLabel: 'Crear y mover fondos',
     },
     {
       title: 'Publicar y moderar media',
       description: 'Sube contenido, valida casos pendientes y revisa aprobados/rechazados.',
       detail: 'Secciones: publishing, validation y results.',
       href: '#publishing',
+      ctaLabel: 'Subir y validar media',
     },
     {
       title: 'Monetizar el catálogo',
       description: 'Publica listings, liquida compras y audita ownership en el explorer.',
       detail: 'Secciones: marketplace, checkout y explorer.',
       href: '#marketplace',
+      ctaLabel: 'Abrir flujo de venta',
     },
   ];
   const workspaceNav = [
@@ -430,7 +434,7 @@ export function FullNodeWeb({ initialState }) {
           <figcaption>Operator cockpit for blockchain operations</figcaption>
         </figure>
         <figure className="mediaCard">
-          <img loading="lazy" src="https://picsum.photos/id/1025/1200/800" alt="Digital wallet and code display" />
+          <img loading="lazy" src="/blockchain-grid.svg" alt="Digital blockchain network visual" />
           <figcaption>Wallet and settlement workflows</figcaption>
         </figure>
         <figure className="mediaCard">

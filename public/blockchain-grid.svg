@@ -1,0 +1,33 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#13081f"/>
+      <stop offset="100%" stop-color="#35113d"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff8fbf"/>
+      <stop offset="100%" stop-color="#ffd2b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <g stroke="url(#line)" stroke-width="2" opacity="0.75">
+    <path d="M120 620 L280 520 L420 580 L610 430 L790 520 L1020 360"/>
+    <path d="M180 300 L350 260 L520 320 L690 220 L900 260 L1050 180"/>
+    <path d="M140 460 L300 380 L470 430 L670 330 L860 390 L1050 310"/>
+  </g>
+  <g fill="#ffd2b8">
+    <circle cx="120" cy="620" r="8"/>
+    <circle cx="280" cy="520" r="8"/>
+    <circle cx="420" cy="580" r="8"/>
+    <circle cx="610" cy="430" r="8"/>
+    <circle cx="790" cy="520" r="8"/>
+    <circle cx="1020" cy="360" r="8"/>
+    <circle cx="180" cy="300" r="8"/>
+    <circle cx="350" cy="260" r="8"/>
+    <circle cx="520" cy="320" r="8"/>
+    <circle cx="690" cy="220" r="8"/>
+    <circle cx="900" cy="260" r="8"/>
+    <circle cx="1050" cy="180" r="8"/>
+  </g>
+  <text x="96" y="730" fill="#ffe9db" font-size="46" font-family="Inter, Arial, sans-serif" letter-spacing="5">STREAMCHAIN NETWORK GRAPH</text>
+</svg>
