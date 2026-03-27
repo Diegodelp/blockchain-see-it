@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 
 const NODE_COUNT = 72;
 const LINK_DISTANCE = 0.26;
+const PACKET_COUNT = 28;
 const THREE_CDN = 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js';
 
 function loadThreeGlobal() {
@@ -96,6 +97,50 @@ export function ChainBackgroundThree() {
       const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
       scene.add(lines);
 
+      const packetPositions = new Float32Array(PACKET_COUNT * 2 * 3);
+      const packetGeometry = new THREE.BufferGeometry();
+      packetGeometry.setAttribute('position', new THREE.BufferAttribute(packetPositions, 3));
+      packetGeometry.setDrawRange(0, PACKET_COUNT * 2);
+      const packetMaterial = new THREE.LineBasicMaterial({ color: '#ffd9c8', transparent: true, opacity: 0.92 });
+      const packets = new THREE.LineSegments(packetGeometry, packetMaterial);
+      scene.add(packets);
+
+      const packetState = Array.from({ length: PACKET_COUNT }, () => ({
+        from: Math.floor(Math.random() * NODE_COUNT),
+        to: Math.floor(Math.random() * NODE_COUNT),
+        progress: Math.random(),
+        speed: 0.003 + (Math.random() * 0.004),
+      }));
+
+      const pickNextTarget = (fromNode) => {
+        const fromOffset = fromNode * 3;
+        let candidate = -1;
+        let candidateDistance = Number.POSITIVE_INFINITY;
+
+        for (let index = 0; index < NODE_COUNT; index += 1) {
+          if (index === fromNode) {
+            continue;
+          }
+
+          const offset = index * 3;
+          const dx = positions[fromOffset] - positions[offset];
+          const dy = positions[fromOffset + 1] - positions[offset + 1];
+          const dz = positions[fromOffset + 2] - positions[offset + 2];
+          const distance = Math.sqrt((dx * dx) + (dy * dy) + (dz * dz));
+
+          if (distance < candidateDistance) {
+            candidate = index;
+            candidateDistance = distance;
+          }
+        }
+
+        return candidate >= 0 ? candidate : ((fromNode + 1) % NODE_COUNT);
+      };
+
+      packetState.forEach((packet) => {
+        packet.to = pickNextTarget(packet.from);
+      });
+
       const updateSize = () => {
         camera.aspect = mount.clientWidth / Math.max(mount.clientHeight, 1);
         camera.updateProjectionMatrix();
@@ -146,14 +191,54 @@ export function ChainBackgroundThree() {
           }
         }
 
+        for (let packetIndex = 0; packetIndex < PACKET_COUNT; packetIndex += 1) {
+          const packet = packetState[packetIndex];
+          if (packet.to === packet.from) {
+            packet.to = (packet.to + 1) % NODE_COUNT;
+          }
+
+          packet.progress += packet.speed;
+          if (packet.progress >= 1) {
+            packet.from = packet.to;
+            packet.to = pickNextTarget(packet.from);
+            packet.progress = 0;
+            packet.speed = 0.003 + (Math.random() * 0.004);
+          }
+
+          const fromIndex = packet.from * 3;
+          const toIndex = packet.to * 3;
+
+          const startX = positions[fromIndex];
+          const startY = positions[fromIndex + 1];
+          const startZ = positions[fromIndex + 2];
+          const targetX = positions[toIndex];
+          const targetY = positions[toIndex + 1];
+          const targetZ = positions[toIndex + 2];
+
+          const headX = startX + ((targetX - startX) * packet.progress);
+          const headY = startY + ((targetY - startY) * packet.progress);
+          const headZ = startZ + ((targetZ - startZ) * packet.progress);
+
+          const base = packetIndex * 6;
+          packetPositions[base] = startX;
+          packetPositions[base + 1] = startY;
+          packetPositions[base + 2] = startZ;
+          packetPositions[base + 3] = headX;
+          packetPositions[base + 4] = headY;
+          packetPositions[base + 5] = headZ;
+        }
+
         pointsGeometry.attributes.position.needsUpdate = true;
         lineGeometry.attributes.position.needsUpdate = true;
+        packetGeometry.attributes.position.needsUpdate = true;
         lineGeometry.setDrawRange(0, drawCount);
 
         particles.rotation.y += 0.00045;
         particles.rotation.x += 0.0002;
         lines.rotation.y += 0.00045;
         lines.rotation.x += 0.0002;
+        packets.rotation.y += 0.00045;
+        packets.rotation.x += 0.0002;
         renderer.render(scene, camera);
         animationFrame = window.requestAnimationFrame(animate);
       };
@@ -165,6 +250,8 @@ export function ChainBackgroundThree() {
         window.cancelAnimationFrame(animationFrame);
         lineGeometry.dispose();
         lineMaterial.dispose();
+        packetGeometry.dispose();
+        packetMaterial.dispose();
         pointsGeometry.dispose();
         pointsMaterial.dispose();
         renderer.dispose();
