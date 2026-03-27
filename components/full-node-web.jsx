@@ -335,7 +335,12 @@ export function FullNodeWeb({ initialState }) {
   ];
 
   return (
-    <div className="appShell">
+    <div className="appShell chainExperience chainExperienceSelfHosted">
+      <div className="chainBackdrop" aria-hidden="true">
+        <span className="chainOrb chainOrbA" />
+        <span className="chainOrb chainOrbB" />
+        <span className="chainGrid" />
+      </div>
       <aside className="appSidebar">
         <div className="appSidebarBrand">
           <p className="eyebrow">StreamChain OS</p>

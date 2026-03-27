@@ -90,7 +90,12 @@ function ContactCard({ label, href, detail }) {
 
 function Node0Shell({ title, description, badge, children }) {
   return (
-    <div className="node0Site">
+    <div className="node0Site chainExperience chainExperienceNode0">
+      <div className="chainBackdrop" aria-hidden="true">
+        <span className="chainOrb chainOrbA" />
+        <span className="chainOrb chainOrbB" />
+        <span className="chainGrid" />
+      </div>
       <section className="hero heroSplit node0Hero">
         <div>
           <p className="eyebrow">StreamChain · Node0</p>
