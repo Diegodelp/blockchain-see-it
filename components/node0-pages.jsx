@@ -160,11 +160,11 @@ export function Node0LandingPage({ state, references }) {
       actionLabel: 'Ver estado de red',
     },
     {
-      title: 'Contacto y go-to-market',
-      description: 'Canales públicos para soporte, partnerships, demos y onboarding comercial.',
-      detail: 'Un único hub para soporte, ventas técnicas y demos.',
-      href: '/node0/contact',
-      actionLabel: 'Abrir canales',
+      title: 'Open-source toolkit',
+      description: 'Recursos técnicos para operar y extender StreamChain en entornos propios.',
+      detail: 'Incluye guía de despliegue, configuración operativa y prácticas de federación.',
+      href: '/node0/install',
+      actionLabel: 'Abrir toolkit',
     },
   ];
 
