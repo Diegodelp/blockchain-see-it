@@ -118,6 +118,11 @@ function Node0Shell({ title, description, badge, children }) {
               <li>Surface comercial y técnica unificada</li>
             </ul>
           </div>
+          <div className="heroSignalGrid">
+            <span className="servicePill">Network visibility</span>
+            <span className="servicePill">Install journey</span>
+            <span className="servicePill">Support channels</span>
+          </div>
         </div>
       </section>
       {children}
@@ -151,15 +156,15 @@ export function Node0LandingPage({ state, references }) {
     {
       title: 'Contacto y go-to-market',
       description: 'Canales públicos para soporte, partnerships, demos y onboarding comercial.',
-      detail: 'Más parecido a un producto real que a una simple landing improvisada.',
+      detail: 'Un único hub para soporte, ventas técnicas y demos.',
       href: '/node0/contact',
     },
   ];
 
   return (
     <Node0Shell
-      title="La portada pública de StreamChain: más sobria, profesional y separada por journeys reales."
-      description="Este home deja de ser una sola página genérica y pasa a ser un punto de entrada claro para entender la red, descargar el self-hosted y navegar páginas específicas de operación, instalación y contacto."
+      title="Build, scale and connect your StreamChain network from one public control plane."
+      description="Node0 centraliza descubrimiento de peers, instalación self-hosted y contacto técnico/comercial en una experiencia clara por secciones."
       badge={state.network?.role || 'node0'}
     >
       <section className="statsGrid statsGridWide">
@@ -170,23 +175,23 @@ export function Node0LandingPage({ state, references }) {
         <StatCard label="Treasury agregada" value={`${peerTotals.aggregateTreasuryBalance} SCH`} detail="Economía observada" />
       </section>
 
-      <section className="panel">
+      <section className="panel sectionBand sectionBandInstall">
         <SectionHeader
           eyebrow="Public navigation"
-          title="Páginas individuales para node0"
-          description="En lugar de meter todo en una sola vista, la experiencia pública ahora se divide por intención: instalar, monitorear la red o abrir canales con el equipo."
-          badge="Professional IA"
+          title="Servicios principales"
+          description="Tres rutas para operar la plataforma: instalar nodos, monitorear la red y abrir canales de soporte."
+          badge="3 rutas"
         />
         <div className="actionGrid actionGridThree">
           {pageCards.map((card) => <PageCard key={card.title} {...card} />)}
         </div>
       </section>
 
-      <section className="panel">
+      <section className="panel sectionBand sectionBandNetwork">
         <SectionHeader
           eyebrow="Executive overview"
-          title="Qué resuelve node0 dentro del producto"
-          description="Node0 actúa como surface pública: discovery, trust bootstrap, marketing técnico y acceso a la documentación, sin asumir la carga transaccional del nodo writable."
+          title="Qué resuelve Node0"
+          description="El plano público coordina visibilidad de red, onboarding técnico y contexto económico sin exponer operaciones de escritura."
           badge="Overview"
         />
         <div className="twoColumns">
