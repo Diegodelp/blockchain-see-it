@@ -14,7 +14,7 @@ import { POST as mediaPOST } from '../app/api/node/media/route.js';
 import { createFederationRequestHeaders, verifyFederationRequest } from '../app/api/_lib/federation-auth.js';
 import { assertOperatorAccess, getOperatorAccess } from '../app/api/_lib/security.js';
 import { createWalletKeypair } from '../lib/transaction-security.js';
-import { createSelfHostedBundle } from '../lib/install-bundle.js';
+import { createSelfHostedBundle, getSelfHostedBundle } from '../lib/install-bundle.js';
 import { consumeRateLimit } from '../lib/rate-limit-store.js';
 import { collectDiscoveredPeerUrls, parseEnvAssignments } from '../scripts/start-self-hosted.mjs';
 
@@ -103,6 +103,34 @@ test('createSelfHostedBundle fails fast with clear error when rootDir does not e
     () => createSelfHostedBundle('/path/that/does-not-exist'),
     /Bundle root no existe o no es un directorio/,
   );
+});
+
+test('getSelfHostedBundle prefers prebuilt artifact when available', async () => {
+  const artifactsDir = path.join(process.cwd(), 'artifacts');
+  const prebuiltPath = path.join(artifactsDir, 'streamchain-self-hosted-kit.tar.gz');
+  const prebuiltPayload = Buffer.from('prebuilt-bundle');
+
+  let backup = null;
+
+  try {
+    try {
+      backup = await readFile(prebuiltPath);
+    } catch {
+      backup = null;
+    }
+
+    await mkdir(artifactsDir, { recursive: true });
+    await writeFile(prebuiltPath, prebuiltPayload);
+
+    const bundle = await getSelfHostedBundle('/path/that/does-not-exist');
+    assert.equal(bundle.equals(prebuiltPayload), true);
+  } finally {
+    if (backup) {
+      await writeFile(prebuiltPath, backup);
+    } else {
+      await rm(prebuiltPath, { force: true });
+    }
+  }
 });
 
 test('parseEnvAssignments respects existing env vars and strips quotes/comments', () => {
