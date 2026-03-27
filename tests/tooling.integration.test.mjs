@@ -98,6 +98,13 @@ test('createSelfHostedBundle default root does not depend on process cwd', async
   }
 });
 
+test('createSelfHostedBundle fails fast with clear error when rootDir does not exist', async () => {
+  await assert.rejects(
+    () => createSelfHostedBundle('/path/that/does-not-exist'),
+    /Bundle root no existe o no es un directorio/,
+  );
+});
+
 test('parseEnvAssignments respects existing env vars and strips quotes/comments', () => {
   const targetEnv = { KEEP_ME: 'original' };
   const applied = parseEnvAssignments(`
