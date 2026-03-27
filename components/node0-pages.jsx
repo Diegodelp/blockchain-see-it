@@ -111,10 +111,8 @@ function Node0Shell({ title, description, badge, children }) {
           <h1>{title}</h1>
           <p className="heroText">{description}</p>
           <div className="ctaRow">
-            <a className="primaryButton" href="/">Inicio</a>
-            <a className="ghostButton" href="/node0/install">Instalación</a>
-            <a className="ghostButton" href="/node0/network">Network</a>
-            <a className="ghostButton" href="/node0/contact">Contacto</a>
+            <a className="primaryButton" href="/api/install/self-hosted">Download bundle</a>
+            <a className="ghostButton" href="/node0/network">Live network status</a>
           </div>
         </div>
         <div className="heroAsideStack">

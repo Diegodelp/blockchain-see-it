@@ -313,7 +313,14 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 10px 4px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 140, 90, 0.22);
+  border-radius: 999px;
+  background: rgba(18, 9, 27, 0.72);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 10px;
+  z-index: 8;
 }
 
 .minimalBrand {
@@ -334,12 +341,17 @@ select {
 .minimalNav a {
   text-decoration: none;
   color: #ffd9cd;
-  font-size: 0.82rem;
-  opacity: 0.9;
+  font-size: 0.78rem;
+  opacity: 0.95;
+  border: 1px solid rgba(255, 140, 90, 0.22);
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(255, 140, 90, 0.07);
 }
 
 .minimalNav a:hover {
   color: #ffffff;
+  background: rgba(255, 140, 90, 0.18);
 }
 
 .ghostButton {

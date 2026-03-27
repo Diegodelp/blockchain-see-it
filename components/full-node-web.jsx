@@ -377,11 +377,7 @@ export function FullNodeWeb({ initialState }) {
             <p className="eyebrow">Operator console</p>
             <h1>Self-hosted command center</h1>
           </div>
-          <div className="ctaRow">
-            <a className="ghostButton" href="#wallets">Nueva wallet</a>
-            <a className="ghostButton" href="#publishing">Subir media</a>
-            <a className="primaryButton" href="#marketplace">Ir al marketplace</a>
-          </div>
+          <span className="badge">Online workflow</span>
         </header>
       <section className="hero heroSplit">
         <div>
@@ -391,9 +387,8 @@ export function FullNodeWeb({ initialState }) {
             Publica contenido, modera validaciones, sincroniza peers y liquida compras desde una sola interfaz con secciones especializadas.
           </p>
           <div className="ctaRow">
-            <a className="primaryButton" href="#wallets">Crear primera wallet</a>
-            <a className="ghostButton" href="#networking">Conectar peers</a>
-            <a className="ghostButton" href="#marketplace">Ir al marketplace</a>
+            <a className="primaryButton" href="#wallets">Start with wallets</a>
+            <a className="ghostButton" href="#marketplace">Open marketplace flow</a>
           </div>
         </div>
         <div className="heroAsideStack">
