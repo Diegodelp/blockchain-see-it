@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
+    "postbuild": "node ./scripts/build-self-hosted-bundle.mjs",
     "start": "node ./scripts/start-self-hosted.mjs",
     "lint": "node ./scripts/lint.mjs",
     "test": "node --import ./tests/register-loader.mjs --test ./tests/*.test.mjs",
+    "bundle:self-hosted": "node ./scripts/build-self-hosted-bundle.mjs",
     "backup:self-hosted": "node ./scripts/backup-self-hosted.mjs",
     "restore:self-hosted": "node ./scripts/restore-self-hosted.mjs",
     "sbom": "node ./scripts/generate-sbom.mjs",
