@@ -1,12 +1,12 @@
 :root {
   color-scheme: dark;
-  --bg: #07101f;
-  --panel: rgba(11, 22, 43, 0.92);
-  --panel-border: rgba(130, 170, 255, 0.18);
-  --text: #f5f7ff;
-  --muted: #aab5d6;
-  --accent: #7ce2d3;
-  --accent-strong: #4fd4be;
+  --bg: #0f0718;
+  --panel: rgba(26, 15, 42, 0.9);
+  --panel-border: rgba(238, 109, 109, 0.22);
+  --text: #fff3ee;
+  --muted: #d0b8d6;
+  --accent: #ff8c5a;
+  --accent-strong: #ff5d9e;
 }
 
 * {
@@ -18,8 +18,9 @@ body {
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at top, rgba(124, 226, 211, 0.16), transparent 40%),
-    linear-gradient(180deg, #08101f 0%, #040811 100%);
+    radial-gradient(circle at top, rgba(255, 93, 158, 0.24), transparent 42%),
+    radial-gradient(circle at 80% 20%, rgba(255, 140, 90, 0.17), transparent 38%),
+    linear-gradient(180deg, #13081f 0%, #09050f 100%);
   color: var(--text);
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
@@ -307,6 +308,40 @@ select {
   margin-top: 24px;
 }
 
+.minimalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 4px;
+}
+
+.minimalBrand {
+  text-decoration: none;
+  color: #ffd4c0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+}
+
+.minimalNav {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.minimalNav a {
+  text-decoration: none;
+  color: #ffd9cd;
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+.minimalNav a:hover {
+  color: #ffffff;
+}
+
 .ghostButton {
   display: inline-flex;
   align-items: center;
@@ -466,6 +501,34 @@ select {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.mediaStrip {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mediaCard {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 140, 90, 0.28);
+  background: rgba(19, 10, 33, 0.8);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
+}
+
+.mediaCard img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.mediaCard figcaption {
+  padding: 10px 12px 12px;
+  font-size: 0.82rem;
+  color: #f5d5de;
+}
+
 .actionCard {
   display: flex;
   flex-direction: column;
@@ -544,6 +607,15 @@ select {
 
   .sectionNav {
     flex-direction: column;
+  }
+
+  .mediaStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .minimalHeader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -669,7 +741,7 @@ select {
   height: 320px;
   top: -80px;
   left: 6%;
-  background: radial-gradient(circle at 30% 30%, rgba(124, 226, 211, 0.55), rgba(124, 226, 211, 0));
+  background: radial-gradient(circle at 30% 30%, rgba(255, 93, 158, 0.54), rgba(255, 93, 158, 0));
 }
 
 .chainOrbB {
@@ -677,7 +749,7 @@ select {
   height: 360px;
   right: 5%;
   top: -120px;
-  background: radial-gradient(circle at 45% 45%, rgba(130, 170, 255, 0.4), rgba(130, 170, 255, 0));
+  background: radial-gradient(circle at 45% 45%, rgba(255, 140, 90, 0.44), rgba(255, 140, 90, 0));
   animation-delay: -5s;
 }
 
@@ -685,8 +757,8 @@ select {
   position: absolute;
   inset: 40px 0 0;
   background-image:
-    linear-gradient(rgba(130, 170, 255, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(130, 170, 255, 0.14) 1px, transparent 1px);
+    linear-gradient(rgba(255, 140, 90, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 93, 158, 0.18) 1px, transparent 1px);
   background-size: 36px 36px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 80%);
   animation: driftGrid 16s linear infinite;
@@ -697,11 +769,11 @@ select {
 .chainExperience .statCard,
 .chainExperience .appSidebar,
 .chainExperience .appTopbar {
-  border-color: rgba(118, 170, 255, 0.25);
+  border-color: rgba(255, 140, 90, 0.34);
   background:
-    linear-gradient(160deg, rgba(10, 22, 40, 0.95), rgba(7, 14, 30, 0.9));
+    linear-gradient(160deg, rgba(36, 13, 45, 0.95), rgba(21, 10, 30, 0.92));
   box-shadow:
-    0 0 0 1px rgba(124, 226, 211, 0.08) inset,
+    0 0 0 1px rgba(255, 140, 90, 0.11) inset,
     0 24px 60px rgba(0, 0, 0, 0.3);
 }
 

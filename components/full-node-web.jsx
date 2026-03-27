@@ -363,6 +363,15 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </aside>
       <div className="appContent">
+        <header className="minimalHeader">
+          <a className="minimalBrand" href="/">StreamChain</a>
+          <nav className="minimalNav" aria-label="Self-hosted primary">
+            <a href="#operating-model">Overview</a>
+            <a href="#networking">Network</a>
+            <a href="#publishing">Publishing</a>
+            <a href="#marketplace">Market</a>
+          </nav>
+        </header>
         <header className="appTopbar">
           <div>
             <p className="eyebrow">Operator console</p>
@@ -422,6 +431,20 @@ export function FullNodeWeb({ initialState }) {
         <article className="statCard"><p className="statLabel">Peers sync</p><strong className="statValue">{state.peers?.length ?? 0}</strong></article>
         <article className="statCard"><p className="statLabel">Peers linkeados</p><strong className="statValue">{linkedPeers}</strong></article>
         <article className="statCard"><p className="statLabel">Peers sincronizados</p><strong className="statValue">{syncedPeers}</strong></article>
+      </section>
+      <section className="mediaStrip">
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1200&q=80" alt="Crypto themed abstract illustration" />
+          <figcaption>Operator cockpit for blockchain operations</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=80" alt="Digital wallet and code display" />
+          <figcaption>Wallet and settlement workflows</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80" alt="Cloud infrastructure lights" />
+          <figcaption>Scalable self-hosted infrastructure</figcaption>
+        </figure>
       </section>
 
       <QuickNav />

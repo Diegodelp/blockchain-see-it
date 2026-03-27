@@ -96,6 +96,15 @@ function Node0Shell({ title, description, badge, children }) {
         <span className="chainOrb chainOrbB" />
         <span className="chainGrid" />
       </div>
+      <header className="minimalHeader">
+        <a className="minimalBrand" href="/">StreamChain</a>
+        <nav className="minimalNav" aria-label="Node0 primary">
+          <a href="/node0">Home</a>
+          <a href="/node0/install">Install</a>
+          <a href="/node0/network">Network</a>
+          <a href="/node0/contact">Contact</a>
+        </nav>
+      </header>
       <section className="hero heroSplit node0Hero">
         <div>
           <p className="eyebrow">StreamChain · Node0</p>
@@ -173,6 +182,20 @@ export function Node0LandingPage({ state, references }) {
         <StatCard label="Listings agregados" value={String(peerTotals.aggregateListings)} detail="Catálogo público" />
         <StatCard label="Altura agregada" value={String(peerTotals.aggregateChainHeight)} detail="Referencia de cadena" />
         <StatCard label="Treasury agregada" value={`${peerTotals.aggregateTreasuryBalance} SCH`} detail="Economía observada" />
+      </section>
+      <section className="mediaStrip">
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80" alt="Blockchain neon network art" />
+          <figcaption>Decentralized network surface</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1642052502485-2f7f7620b3ab?auto=format&fit=crop&w=1200&q=80" alt="Server racks in datacenter" />
+          <figcaption>Self-hosted infrastructure ready</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Circuit board macro view" />
+          <figcaption>Security and integrity by design</figcaption>
+        </figure>
       </section>
 
       <section className="panel sectionBand sectionBandInstall">
