@@ -4,6 +4,35 @@ import { useEffect, useRef } from 'react';
 
 const NODE_COUNT = 72;
 const LINK_DISTANCE = 0.26;
+const THREE_CDN = 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js';
+
+function loadThreeGlobal() {
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('No window available'));
+  }
+
+  if (window.THREE) {
+    return Promise.resolve(window.THREE);
+  }
+
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-three-cdn="true"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.THREE), { once: true });
+      existing.addEventListener('error', () => reject(new Error('Could not load Three.js')), { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = THREE_CDN;
+    script.async = true;
+    script.defer = true;
+    script.dataset.threeCdn = 'true';
+    script.onload = () => resolve(window.THREE);
+    script.onerror = () => reject(new Error('Could not load Three.js'));
+    document.head.appendChild(script);
+  });
+}
 
 export function ChainBackgroundThree() {
   const mountRef = useRef(null);
@@ -14,17 +43,15 @@ export function ChainBackgroundThree() {
       return undefined;
     }
 
-    let THREE;
     let animationFrame;
     let mounted = true;
     let cleanup = () => {};
 
-    import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js').then((module) => {
-      if (!mounted) {
+    loadThreeGlobal().then((THREE) => {
+      if (!mounted || !THREE) {
         return;
       }
 
-      THREE = module;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
       camera.position.z = 2.8;
