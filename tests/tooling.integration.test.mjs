@@ -396,6 +396,26 @@ test('rate limit store persists counters in sqlite instead of in-memory only', a
   }
 });
 
+test('rate limit store falls back to tmp db path when configured path cannot be created', async () => {
+  const originalVercel = process.env.VERCEL;
+  process.env.VERCEL = '1';
+  process.env.STREAMCHAIN_RATE_LIMIT_DB = '/vercel/rate-limit.sqlite';
+
+  try {
+    const first = await consumeRateLimit('peer:fallback', { limit: 1, windowMs: 60_000 });
+    const second = await consumeRateLimit('peer:fallback', { limit: 1, windowMs: 60_000 });
+    assert.equal(first.allowed, true);
+    assert.equal(second.allowed, false);
+  } finally {
+    if (originalVercel === undefined) {
+      delete process.env.VERCEL;
+    } else {
+      process.env.VERCEL = originalVercel;
+    }
+    delete process.env.STREAMCHAIN_RATE_LIMIT_DB;
+  }
+});
+
 test('metrics route exposes prometheus-compatible output', async () => {
   const response = await metricsGET();
   const payload = await response.text();
