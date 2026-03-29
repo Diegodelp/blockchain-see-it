@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ChainBackgroundThree } from './chain-background-three';
 
-const GENESIS_NODE0_URL = 'https://blockchain-gilt-rho.vercel.app';
+const GENESIS_NODE0_URL = 'https://blockchain-see-it.vercel.app';
 
 const emptyState = {
   network: null,
@@ -551,7 +551,7 @@ export function FullNodeWeb({ initialState }) {
         <div className="proofBox">
           <strong>Importante: que `node0` figure como read-only es normal</strong>
           <p className="muted">
-            Si ves `https://blockchain-gilt-rho.vercel.app` como <strong>linked / read-only</strong>, eso no significa que falló.
+            Si ves `https://blockchain-see-it.vercel.app` como <strong>linked / read-only</strong>, eso no significa que falló.
             Solo significa que `node0` es un catálogo público y no un peer de sync bidireccional.
           </p>
           <p className="muted">

@@ -4,7 +4,7 @@ import path from 'path';
 import { pathToFileURL } from 'url';
 
 const ROOT_DIR = process.cwd();
-const DEFAULT_NODE0_URL = 'https://blockchain-gilt-rho.vercel.app';
+const DEFAULT_NODE0_URL = 'https://blockchain-see-it.vercel.app';
 const NGROK_DOWNLOADS = {
   'linux:x64': 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz',
   'linux:arm64': 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz',
