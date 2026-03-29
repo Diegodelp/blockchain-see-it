@@ -74,6 +74,17 @@ npm install
 STREAMCHAIN_NODE_MODE=self-hosted npm run dev
 ```
 
+Si `npm audit` te reporta `jxLoader`, `build`, `timespan`, `uglify-js` o `js-yaml`, ese reporte no corresponde al árbol normal de este proyecto (que solo depende de `next`, `react` y `react-dom`).
+Normalmente eso pasa cuando el entorno local está mezclando paquetes globales o una carpeta distinta al kit recién extraído.
+
+Puedes verificar qué depende realmente esta app con:
+
+```bash
+npm ls js-yaml jxLoader build timespan uglify-js npm --all
+```
+
+Si devuelve `(empty)` para esos paquetes, el hallazgo viene de otro árbol de dependencias ajeno al proyecto.
+
 ### Producción simple en un VPS
 
 ```bash
