@@ -103,7 +103,7 @@ function shouldAutoNgrok() {
 }
 
 function shouldAutoRegisterWithNode0() {
-  return String(process.env.STREAMCHAIN_AUTO_NODE0_REGISTER || 'false').toLowerCase() === 'true';
+  return String(process.env.STREAMCHAIN_AUTO_NODE0_REGISTER || 'true').toLowerCase() !== 'false';
 }
 
 function sleep(ms) {
