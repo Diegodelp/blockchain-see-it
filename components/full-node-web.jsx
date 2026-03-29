@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ChainBackgroundThree } from './chain-background-three';
 
-const GENESIS_NODE0_URL = 'https://blockchain-gilt-rho.vercel.app';
+const GENESIS_NODE0_URL = 'https://blockchain-see-it.vercel.app';
 
 const emptyState = {
   network: null,
@@ -58,13 +59,13 @@ function QuickNav() {
   );
 }
 
-function ActionCard({ title, description, detail, href }) {
+function ActionCard({ title, description, detail, href, ctaLabel = 'Ir a la sección' }) {
   return (
     <article className="actionCard">
       <strong>{title}</strong>
       <p className="muted">{description}</p>
       {detail ? <p className="actionDetail">{detail}</p> : null}
-      <a className="ghostButton" href={href}>Ir a la sección</a>
+      <a className="ghostButton" href={href}>{ctaLabel}</a>
     </article>
   );
 }
@@ -301,24 +302,28 @@ export function FullNodeWeb({ initialState }) {
       description: 'Entiende fees, tesorería, peers y el registro con node0 antes de ejecutar acciones.',
       detail: 'Ideal para onboarding técnico y lectura ejecutiva.',
       href: '#operating-model',
+      ctaLabel: 'Ver modelo',
     },
     {
       title: 'Operar wallets y pagos',
       description: 'Crea wallets, mueve SCH y prueba la economía del nodo desde el navegador.',
       detail: 'Secciones: wallets y transferencias.',
       href: '#wallets',
+      ctaLabel: 'Crear y mover fondos',
     },
     {
       title: 'Publicar y moderar media',
       description: 'Sube contenido, valida casos pendientes y revisa aprobados/rechazados.',
       detail: 'Secciones: publishing, validation y results.',
       href: '#publishing',
+      ctaLabel: 'Subir y validar media',
     },
     {
       title: 'Monetizar el catálogo',
       description: 'Publica listings, liquida compras y audita ownership en el explorer.',
       detail: 'Secciones: marketplace, checkout y explorer.',
       href: '#marketplace',
+      ctaLabel: 'Abrir flujo de venta',
     },
   ];
   const workspaceNav = [
@@ -335,12 +340,13 @@ export function FullNodeWeb({ initialState }) {
   ];
 
   return (
-    <div className="appShell">
+    <div className="appShell chainExperience chainExperienceSelfHosted">
+      <ChainBackgroundThree />
       <aside className="appSidebar">
         <div className="appSidebarBrand">
           <p className="eyebrow">StreamChain OS</p>
           <strong>Self-hosted workspace</strong>
-          <p className="muted">Una UI más cercana a una web app real: navegación persistente, secciones operativas y foco por dominio.</p>
+          <p className="muted">Consola operativa para desplegar, validar contenido y monetizar en una red blockchain-style.</p>
         </div>
         <nav className="appSidebarNav" aria-label="Navegación del workspace">
           {workspaceNav.map(([id, label]) => (
@@ -358,29 +364,32 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </aside>
       <div className="appContent">
+        <header className="minimalHeader">
+          <a className="minimalBrand" href="/">StreamChain</a>
+          <nav className="minimalNav" aria-label="Self-hosted primary">
+            <a href="#operating-model">Overview</a>
+            <a href="#networking">Network</a>
+            <a href="#publishing">Publishing</a>
+            <a href="#marketplace">Market</a>
+          </nav>
+        </header>
         <header className="appTopbar">
           <div>
             <p className="eyebrow">Operator console</p>
-            <h1>Panel self-hosted</h1>
+            <h1>Self-hosted command center</h1>
           </div>
-          <div className="ctaRow">
-            <a className="ghostButton" href="#wallets">Nueva wallet</a>
-            <a className="ghostButton" href="#publishing">Subir media</a>
-            <a className="primaryButton" href="#marketplace">Ir al marketplace</a>
-          </div>
+          <span className="badge">Online workflow</span>
         </header>
       <section className="hero heroSplit">
         <div>
           <p className="eyebrow">Self-hosted full node</p>
-          <h1>Centro operativo completo para correr StreamChain en infraestructura propia con una UI más modular, clara y profesional.</h1>
+          <h1>Operate your own blockchain media node with production-ready flows.</h1>
           <p className="heroText">
-            Esta portada separa mejor el trabajo del operador: primero entiendes el modelo económico y de federación, luego ejecutas acciones
-            sobre wallets, pagos, publishing, moderación y marketplace. Todo vive en secciones dedicadas para que el flujo sea más legible.
+            Publica contenido, modera validaciones, sincroniza peers y liquida compras desde una sola interfaz con secciones especializadas.
           </p>
           <div className="ctaRow">
-            <a className="primaryButton" href="#wallets">Crear primera wallet</a>
-            <a className="ghostButton" href="#networking">Conectar peers</a>
-            <a className="ghostButton" href="#marketplace">Ir al marketplace</a>
+            <a className="primaryButton" href="#wallets">Start with wallets</a>
+            <a className="ghostButton" href="#marketplace">Open marketplace flow</a>
           </div>
         </div>
         <div className="heroAsideStack">
@@ -394,10 +403,15 @@ export function FullNodeWeb({ initialState }) {
             </ul>
           </div>
           <div className="proofBox compactPanel">
-            <strong>Cómo leer esta home</strong>
+            <strong>Service architecture</strong>
             <p className="muted">
-              La página se ordena por capacidades: modelo operativo, networking, acciones financieras, publishing/moderación, monetización y explorer.
+              Cada sección representa un dominio operativo: network, treasury, publishing, moderation y commerce.
             </p>
+          </div>
+          <div className="heroSignalGrid">
+            <span className="servicePill">Wallet economy</span>
+            <span className="servicePill">Content validation</span>
+            <span className="servicePill">Marketplace settlement</span>
           </div>
         </div>
       </section>
@@ -414,12 +428,26 @@ export function FullNodeWeb({ initialState }) {
         <article className="statCard"><p className="statLabel">Peers linkeados</p><strong className="statValue">{linkedPeers}</strong></article>
         <article className="statCard"><p className="statLabel">Peers sincronizados</p><strong className="statValue">{syncedPeers}</strong></article>
       </section>
+      <section className="mediaStrip">
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1200&q=80" alt="Crypto themed abstract illustration" />
+          <figcaption>Operator cockpit for blockchain operations</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="/blockchain-grid.svg" alt="Digital blockchain network visual" />
+          <figcaption>Wallet and settlement workflows</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80" alt="Cloud infrastructure lights" />
+          <figcaption>Scalable self-hosted infrastructure</figcaption>
+        </figure>
+      </section>
 
       <QuickNav />
 
-      <section className="panel" id="operating-model">
+      <section className="panel sectionBand sectionBandInstall" id="operating-model">
         <SectionTitle eyebrow="Operator sections" title="Mapa de acciones del nodo self-hosted" badge="Modular UI" endpoint="Home sections" />
-        <p className="muted">Separamos las acciones principales por dominios operativos para que la navegación sea más natural para operadores, founders o integradores.</p>
+        <p className="muted">Acceso rápido a cada capability del nodo para operar sin fricción entre onboarding técnico y ejecución diaria.</p>
         <div className="actionGrid actionGridTwo">
           {operatorSections.map((section) => (
             <ActionCard key={section.title} {...section} />
@@ -429,7 +457,7 @@ export function FullNodeWeb({ initialState }) {
 
       {message ? <section className="panel panelNotice"><p className="muted">{message}</p></section> : null}
 
-      <section className="panel" id="economics">
+      <section className="panel sectionBand sectionBandNetwork" id="economics">
         <SectionTitle eyebrow="Economics" title="Parámetros económicos del nodo" badge="Roadmap cerrado" endpoint="ENV + /api/node/state" />
         <div className="twoColumns">
           <div className="proofBox">
@@ -472,7 +500,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="networking">
+      <section className="panel sectionBand sectionBandNetwork" id="networking">
         <SectionTitle eyebrow="Networking" title="Peers y sincronización" badge="Multi-node" endpoint="/api/node/peers + /api/node/sync" />
         <p className="muted">
           Si pegas una URL de Vercel/node0 pública quedará <strong>linkeada</strong> como referencia read-only. Solo un nodo
@@ -523,7 +551,7 @@ export function FullNodeWeb({ initialState }) {
         <div className="proofBox">
           <strong>Importante: que `node0` figure como read-only es normal</strong>
           <p className="muted">
-            Si ves `https://blockchain-gilt-rho.vercel.app` como <strong>linked / read-only</strong>, eso no significa que falló.
+            Si ves `https://blockchain-see-it.vercel.app` como <strong>linked / read-only</strong>, eso no significa que falló.
             Solo significa que `node0` es un catálogo público y no un peer de sync bidireccional.
           </p>
           <p className="muted">
@@ -583,7 +611,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="wallets">
+      <section className="panel sectionBand sectionBandWallets" id="wallets">
         <SectionTitle eyebrow="Wallets" title="Crear wallet" badge={loading ? 'Procesando…' : 'Web form'} endpoint="/api/node/wallets" />
         <form className="formStack" onSubmit={handleWalletCreate}>
           <label>
@@ -622,7 +650,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="transactions">
+      <section className="panel sectionBand sectionBandWallets" id="transactions">
         <SectionTitle eyebrow="Transactions" title="Enviar SCH desde la web" badge="Immediate" endpoint="/api/node/transactions" />
         <p className="muted">Las transferencias simples también aportan fee a la tesorería del nodo.</p>
         <form className="draftGrid" onSubmit={handleTransaction}>
@@ -665,7 +693,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="publishing">
+      <section className="panel sectionBand sectionBandPublishing" id="publishing">
         <SectionTitle eyebrow="Publishing" title="Subir video o memory" badge="Filesystem / external URL" endpoint="/api/node/media" />
         <form className="formStack" onSubmit={handleMediaUpload}>
           <div className="draftGrid">
@@ -701,7 +729,7 @@ export function FullNodeWeb({ initialState }) {
         </form>
       </section>
 
-      <section className="panel" id="validation">
+      <section className="panel sectionBand sectionBandPublishing" id="validation">
         <SectionTitle eyebrow="Validation" title="Minar desde el navegador" badge="2 confirmations" endpoint="/api/node/mine" />
         <div className="tableWrap">
           <table className="dataTable">
@@ -762,7 +790,7 @@ export function FullNodeWeb({ initialState }) {
         </form>
       </section>
 
-      <section className="panel" id="marketplace">
+      <section className="panel sectionBand sectionBandMarket" id="marketplace">
         <SectionTitle eyebrow="Marketplace" title="Listar videos aprobados" badge="Monetización real" endpoint="/api/node/listings" />
         <p className="muted">Cada compra distribuye el valor entre seller, tesorería del nodo y royalty del creador si corresponde. Además, ahora la compra transfiere el ownership y habilita reventas reales.</p>
         <form className="draftGrid" onSubmit={handleCreateListing}>
@@ -813,7 +841,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="checkout">
+      <section className="panel sectionBand sectionBandMarket" id="checkout">
         <SectionTitle eyebrow="Checkout" title="Comprar un listing entre wallets" badge="On-chain settlement" endpoint="/api/node/purchases" />
         <form className="draftGrid" onSubmit={handlePurchase}>
           <label>
@@ -852,7 +880,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="results">
+      <section className="panel sectionBand sectionBandResults" id="results">
         <SectionTitle eyebrow="TrueWork results" title="Aprobados y rechazados" badge="Auditable" endpoint="/api/node/state" />
         <div className="twoColumns">
           <div className="proofBox">
@@ -881,7 +909,7 @@ export function FullNodeWeb({ initialState }) {
         </div>
       </section>
 
-      <section className="panel" id="explorer">
+      <section className="panel sectionBand sectionBandResults" id="explorer">
         <SectionTitle eyebrow="Explorer" title="Cadena actual del nodo" badge="Self-hosted" endpoint="/api/node/export" />
         <div className="timeline">
           {state.chain.map((block) => (

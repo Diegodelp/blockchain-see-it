@@ -14,7 +14,7 @@ import { POST as mediaPOST } from '../app/api/node/media/route.js';
 import { createFederationRequestHeaders, verifyFederationRequest } from '../app/api/_lib/federation-auth.js';
 import { assertOperatorAccess, getOperatorAccess } from '../app/api/_lib/security.js';
 import { createWalletKeypair } from '../lib/transaction-security.js';
-import { createSelfHostedBundle } from '../lib/install-bundle.js';
+import { createSelfHostedBundle, getSelfHostedBundle } from '../lib/install-bundle.js';
 import { consumeRateLimit } from '../lib/rate-limit-store.js';
 import { collectDiscoveredPeerUrls, parseEnvAssignments } from '../scripts/start-self-hosted.mjs';
 
@@ -79,6 +79,50 @@ test('createSelfHostedBundle excludes runtime-heavy paths and keeps app files', 
     assert.ok(!entries.includes('ignored.pyc'));
   } finally {
     await rm(rootDir, { recursive: true, force: true });
+  }
+});
+
+test('createSelfHostedBundle default root does not depend on process cwd', async () => {
+  const originalCwd = process.cwd();
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), 'streamchain-cwd-'));
+
+  try {
+    process.chdir(tempDir);
+    const archive = await createSelfHostedBundle();
+    const entries = listTarEntries(gunzipSync(archive));
+
+    assert.ok(entries.includes('app/page.jsx'));
+  } finally {
+    process.chdir(originalCwd);
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test('createSelfHostedBundle fails fast with clear error when rootDir does not exist', async () => {
+  await assert.rejects(
+    () => createSelfHostedBundle('/path/that/does-not-exist'),
+    /Bundle root no existe o no es un directorio/,
+  );
+});
+
+test('getSelfHostedBundle can fetch a remote repository archive when configured', async () => {
+  const originalUrl = process.env.STREAMCHAIN_SELF_HOSTED_BUNDLE_URL;
+  const originalFetch = global.fetch;
+  const payload = Buffer.from('remote-archive');
+
+  process.env.STREAMCHAIN_SELF_HOSTED_BUNDLE_URL = 'https://downloads.example.com/self-hosted.tar.gz';
+  global.fetch = async () => new Response(payload, { status: 200 });
+
+  try {
+    const bundle = await getSelfHostedBundle('/path/that/does-not-exist');
+    assert.equal(bundle.equals(payload), true);
+  } finally {
+    if (typeof originalUrl === 'undefined') {
+      delete process.env.STREAMCHAIN_SELF_HOSTED_BUNDLE_URL;
+    } else {
+      process.env.STREAMCHAIN_SELF_HOSTED_BUNDLE_URL = originalUrl;
+    }
+    global.fetch = originalFetch;
   }
 });
 
@@ -349,6 +393,26 @@ test('rate limit store persists counters in sqlite instead of in-memory only', a
   } finally {
     delete process.env.STREAMCHAIN_RATE_LIMIT_DB;
     await rm(rootDir, { recursive: true, force: true });
+  }
+});
+
+test('rate limit store falls back to tmp db path when configured path cannot be created', async () => {
+  const originalVercel = process.env.VERCEL;
+  process.env.VERCEL = '1';
+  process.env.STREAMCHAIN_RATE_LIMIT_DB = '/vercel/rate-limit.sqlite';
+
+  try {
+    const first = await consumeRateLimit('peer:fallback', { limit: 1, windowMs: 60_000 });
+    const second = await consumeRateLimit('peer:fallback', { limit: 1, windowMs: 60_000 });
+    assert.equal(first.allowed, true);
+    assert.equal(second.allowed, false);
+  } finally {
+    if (originalVercel === undefined) {
+      delete process.env.VERCEL;
+    } else {
+      process.env.VERCEL = originalVercel;
+    }
+    delete process.env.STREAMCHAIN_RATE_LIMIT_DB;
   }
 });
 

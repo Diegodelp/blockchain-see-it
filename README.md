@@ -74,6 +74,17 @@ npm install
 STREAMCHAIN_NODE_MODE=self-hosted npm run dev
 ```
 
+Si `npm audit` te reporta `jxLoader`, `build`, `timespan`, `uglify-js` o `js-yaml`, ese reporte no corresponde al árbol normal de este proyecto (que solo depende de `next`, `react` y `react-dom`).
+Normalmente eso pasa cuando el entorno local está mezclando paquetes globales o una carpeta distinta al kit recién extraído.
+
+Puedes verificar qué depende realmente esta app con:
+
+```bash
+npm ls js-yaml jxLoader build timespan uglify-js npm --all
+```
+
+Si devuelve `(empty)` para esos paquetes, el hallazgo viene de otro árbol de dependencias ajeno al proyecto.
+
 ### Producción simple en un VPS
 
 ```bash
@@ -228,7 +239,7 @@ STREAMCHAIN_AUTO_NGROK=true
 STREAMCHAIN_NGROK_AUTHTOKEN=tu-token-de-ngrok
 STREAMCHAIN_NODE0_REGISTRATION_TARGETS=https://tu-node0.vercel.app
 STREAMCHAIN_NODE0_REGISTRATION_SECRET=replace-with-a-long-random-secret
-STREAMCHAIN_GENESIS_NODE0_URL=https://blockchain-gilt-rho.vercel.app
+STREAMCHAIN_GENESIS_NODE0_URL=https://blockchain-see-it.vercel.app
 ```
 
 Si el servidor ya tiene `ngrok` instalado y autenticado globalmente, puedes dejar `STREAMCHAIN_NGROK_AUTHTOKEN` vacío y el arranque intentará reutilizar ese binario/config existente.
@@ -277,7 +288,7 @@ Así el usuario no necesita conocer manualmente la API ni preparar el curl a man
 
 Además, el flujo ya viene orientado al `node0 genesis` por defecto:
 
-- `https://blockchain-gilt-rho.vercel.app`
+- `https://blockchain-see-it.vercel.app`
 - intenta usar el `window.location.origin` como URL pública cuando no es localhost
 - permite secret opcional si ese `node0` exige autenticación adicional
 
@@ -292,7 +303,7 @@ Ejemplo: VPS, Docker con dominio propio, o deploy en otro Vercel.
 1. Abre tu nodo en modo `self-hosted`.
 2. Ve a la sección **Networking**.
 3. En la tarjeta **Conectar este nodo con node0 genesis**, deja por defecto:
-   - `https://blockchain-gilt-rho.vercel.app`
+   - `https://blockchain-see-it.vercel.app`
 4. En **URL pública de este nodo**, pega la URL real donde tu nodo responde públicamente.
 5. Si el `node0` madre usa secret, pégalo en **Secret de registro de node0 (opcional)**. Si no, déjalo vacío.
 6. Haz click en **Conectar con node0 genesis**.
@@ -314,7 +325,7 @@ Ejemplo: VPS, Docker con dominio propio, o deploy en otro Vercel.
 3. Copia esa URL pública.
 4. Ve a la tarjeta **Conectar este nodo con node0 genesis**.
 5. Pega la URL del túnel en **URL pública de este nodo**.
-6. Deja `https://blockchain-gilt-rho.vercel.app` como `node0` madre.
+6. Deja `https://blockchain-see-it.vercel.app` como `node0` madre.
 7. Haz click en **Conectar con node0 genesis**.
 
 #### Caso C · Quieres linkear otro host de Vercel con el node0 madre
@@ -330,7 +341,7 @@ Ejemplo: VPS, Docker con dominio propio, o deploy en otro Vercel.
 
 - En tu UI local/self-hosted verás el mensaje de éxito.
 - El `node0` madre podrá registrarte y usarte como referencia.
-- Si la tabla muestra `https://blockchain-gilt-rho.vercel.app` como `linked / read-only`, **eso es normal**: `node0` es una referencia pública, no un peer de sync.
+- Si la tabla muestra `https://blockchain-see-it.vercel.app` como `linked / read-only`, **eso es normal**: `node0` es una referencia pública, no un peer de sync.
 - Lo que debes mirar como señal de éxito es el estado de **registro en node0**.
 - Si falla, revisa normalmente estas tres cosas:
   1. la URL pública realmente responde desde internet

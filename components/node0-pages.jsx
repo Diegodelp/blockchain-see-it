@@ -1,3 +1,5 @@
+import { ChainBackgroundThree } from './chain-background-three';
+
 function formatDate(value) {
   return value ? new Date(value).toLocaleString('es-AR') : '—';
 }
@@ -64,13 +66,13 @@ function StatCard({ label, value, detail }) {
   );
 }
 
-function PageCard({ title, description, href, detail }) {
+function PageCard({ title, description, href, detail, actionLabel = 'Abrir' }) {
   return (
     <article className="actionCard">
       <strong>{title}</strong>
       <p className="muted">{description}</p>
       {detail ? <p className="actionDetail">{detail}</p> : null}
-      <a className="primaryButton" href={href}>Abrir página</a>
+      <a className="primaryButton" href={href}>{actionLabel}</a>
     </article>
   );
 }
@@ -90,17 +92,24 @@ function ContactCard({ label, href, detail }) {
 
 function Node0Shell({ title, description, badge, children }) {
   return (
-    <div className="node0Site">
+    <div className="node0Site chainExperience chainExperienceNode0">
+      <ChainBackgroundThree />
+      <header className="minimalHeader">
+        <a className="minimalBrand" href="/">StreamChain</a>
+        <nav className="minimalNav" aria-label="Node0 primary">
+          <a href="/">Home</a>
+          <a href="/node0/install">Install</a>
+          <a href="/node0/network">Network</a>
+        </nav>
+      </header>
       <section className="hero heroSplit node0Hero">
         <div>
           <p className="eyebrow">StreamChain · Node0</p>
           <h1>{title}</h1>
           <p className="heroText">{description}</p>
           <div className="ctaRow">
-            <a className="primaryButton" href="/">Inicio</a>
-            <a className="ghostButton" href="/node0/install">Instalación</a>
-            <a className="ghostButton" href="/node0/network">Network</a>
-            <a className="ghostButton" href="/node0/contact">Contacto</a>
+            <a className="primaryButton" href="/api/install/self-hosted">Download bundle</a>
+            <a className="ghostButton" href="/node0/network">Live network status</a>
           </div>
         </div>
         <div className="heroAsideStack">
@@ -112,6 +121,11 @@ function Node0Shell({ title, description, badge, children }) {
               <li>Instalación guiada del self-hosted</li>
               <li>Surface comercial y técnica unificada</li>
             </ul>
+          </div>
+          <div className="heroSignalGrid">
+            <span className="servicePill">Network visibility</span>
+            <span className="servicePill">Install journey</span>
+            <span className="servicePill">Support channels</span>
           </div>
         </div>
       </section>
@@ -136,25 +150,28 @@ export function Node0LandingPage({ state, references }) {
       description: 'Una página dedicada para descargar el bundle, configurar variables y levantar un nodo con criterio operativo.',
       detail: 'Pensada para equipos técnicos y operadores que necesitan un paso a paso claro.',
       href: '/node0/install',
+      actionLabel: 'Ver instalación',
     },
     {
       title: 'Network & peers',
       description: 'Vista ejecutiva de peers, estado de red y operación read-only del node0.',
       detail: 'Útil para revisar salud de la red sin entrar al full node.',
       href: '/node0/network',
+      actionLabel: 'Ver estado de red',
     },
     {
-      title: 'Contacto y go-to-market',
-      description: 'Canales públicos para soporte, partnerships, demos y onboarding comercial.',
-      detail: 'Más parecido a un producto real que a una simple landing improvisada.',
-      href: '/node0/contact',
+      title: 'Open-source toolkit',
+      description: 'Recursos técnicos para operar y extender StreamChain en entornos propios.',
+      detail: 'Incluye guía de despliegue, configuración operativa y prácticas de federación.',
+      href: '/node0/install',
+      actionLabel: 'Abrir toolkit',
     },
   ];
 
   return (
     <Node0Shell
-      title="La portada pública de StreamChain: más sobria, profesional y separada por journeys reales."
-      description="Este home deja de ser una sola página genérica y pasa a ser un punto de entrada claro para entender la red, descargar el self-hosted y navegar páginas específicas de operación, instalación y contacto."
+      title="Build, scale and connect your StreamChain network from one public control plane."
+      description="Node0 centraliza descubrimiento de peers, instalación self-hosted y contacto técnico/comercial en una experiencia clara por secciones."
       badge={state.network?.role || 'node0'}
     >
       <section className="statsGrid statsGridWide">
@@ -164,24 +181,38 @@ export function Node0LandingPage({ state, references }) {
         <StatCard label="Altura agregada" value={String(peerTotals.aggregateChainHeight)} detail="Referencia de cadena" />
         <StatCard label="Treasury agregada" value={`${peerTotals.aggregateTreasuryBalance} SCH`} detail="Economía observada" />
       </section>
+      <section className="mediaStrip">
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80" alt="Blockchain neon network art" />
+          <figcaption>Decentralized network surface</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="/blockchain-grid.svg" alt="Blockchain network visual" />
+          <figcaption>Self-hosted infrastructure ready</figcaption>
+        </figure>
+        <figure className="mediaCard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Circuit board macro view" />
+          <figcaption>Security and integrity by design</figcaption>
+        </figure>
+      </section>
 
-      <section className="panel">
+      <section className="panel sectionBand sectionBandInstall">
         <SectionHeader
           eyebrow="Public navigation"
-          title="Páginas individuales para node0"
-          description="En lugar de meter todo en una sola vista, la experiencia pública ahora se divide por intención: instalar, monitorear la red o abrir canales con el equipo."
-          badge="Professional IA"
+          title="Servicios principales"
+          description="Tres rutas para operar la plataforma: instalar nodos, monitorear la red y abrir canales de soporte."
+          badge="3 rutas"
         />
         <div className="actionGrid actionGridThree">
           {pageCards.map((card) => <PageCard key={card.title} {...card} />)}
         </div>
       </section>
 
-      <section className="panel">
+      <section className="panel sectionBand sectionBandNetwork">
         <SectionHeader
           eyebrow="Executive overview"
-          title="Qué resuelve node0 dentro del producto"
-          description="Node0 actúa como surface pública: discovery, trust bootstrap, marketing técnico y acceso a la documentación, sin asumir la carga transaccional del nodo writable."
+          title="Qué resuelve Node0"
+          description="El plano público coordina visibilidad de red, onboarding técnico y contexto económico sin exponer operaciones de escritura."
           badge="Overview"
         />
         <div className="twoColumns">
@@ -219,9 +250,9 @@ export function Node0InstallPage({ state }) {
       <section className="panel">
         <SectionHeader eyebrow="Deployment" title="Instalación guiada" description="Una sola página pensada para el operador técnico, con el bundle, la configuración mínima y los comandos de arranque principales." badge="3 steps" />
         <div className="actionGrid actionGridThree">
-          <PageCard title="1. Descarga el bundle" description="Obtén el paquete base del self-hosted listo para desplegar." detail="Incluye app, APIs, scripts y layout operacional." href="/api/install/self-hosted" />
-          <PageCard title="2. Configura el entorno" description="Define modo, storage, claves y fees antes de arrancar." detail="Variables base: `STREAMCHAIN_NODE_MODE=self-hosted` y `STREAMCHAIN_STORAGE_DIR=./storage`." href="/node0/install" />
-          <PageCard title="3. Arranca el servicio" description="Levanta el nodo con Docker o Node.js y habilita la experiencia completa." detail="Ejemplos: `docker compose up --build` y `npm install && npm run dev`." href="/node0/install" />
+          <PageCard title="1. Descarga el bundle" description="Obtén el paquete base del self-hosted listo para desplegar." detail="Incluye app, APIs, scripts y layout operacional." href="/api/install/self-hosted" actionLabel="Descargar bundle" />
+          <PageCard title="2. Configura el entorno" description="Define modo, storage, claves y fees antes de arrancar." detail="Variables base: `STREAMCHAIN_NODE_MODE=self-hosted` y `STREAMCHAIN_STORAGE_DIR=./storage`." href="/node0/install" actionLabel="Abrir guía de variables" />
+          <PageCard title="3. Arranca el servicio" description="Levanta el nodo con Docker o Node.js y habilita la experiencia completa." detail="Ejemplos: `docker compose up --build` y `npm install && npm run dev`." href="/node0/install" actionLabel="Ver comandos de arranque" />
         </div>
         <div className="twoColumns">
           <div className="proofBox">
@@ -254,6 +285,7 @@ export function Node0NetworkPage({ state, references }) {
     aggregateFeatured: 0,
     aggregateTreasuryBalance: 0,
   };
+  const registrations = state.registrations || [];
   return (
     <Node0Shell
       title="Monitorea la red desde una página dedicada a peers, health y referencias públicas."
@@ -289,6 +321,34 @@ export function Node0NetworkPage({ state, references }) {
         <div className="proofBox">
           <strong>Variable de configuración</strong>
           <code>STREAMCHAIN_NODE0_PEERS=http://peer-a:3000,http://peer-b:3000</code>
+        </div>
+      </section>
+      <section className="panel">
+        <SectionHeader
+          eyebrow="Live registry"
+          title="Registro público de nodos auto-registrados"
+          description="Estos nodos pasaron por la verificación de `POST /api/node0/register` (export, manifest e integrity) y quedan visibles para transparencia operativa."
+          badge="Public registry"
+        />
+        <div className="tableWrap">
+          <table className="dataTable">
+            <thead><tr><th>URL</th><th>Estado</th><th>Auth</th><th>Registrado</th><th>Integrity</th></tr></thead>
+            <tbody>
+              {registrations.length > 0 ? registrations.map((peer) => (
+                <tr key={peer.url}>
+                  <td className="mono">{peer.url}</td>
+                  <td>{peer.status || 'verified'}</td>
+                  <td>{peer.authorizationMode || 'public-verified'}</td>
+                  <td>{formatDate(peer.verifiedAt || peer.registeredAt)}</td>
+                  <td className="mono">{peer.integrityHash || '—'}</td>
+                </tr>
+              )) : (
+                <tr>
+                  <td colSpan={5}>Todavía no hay registros visibles en este runtime.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </section>
       <section className="panel">

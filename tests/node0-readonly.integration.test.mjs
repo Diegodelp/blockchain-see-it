@@ -10,6 +10,7 @@ import { GET as manifestGET } from '../app/api/manifest/route.js';
 import { POST as registerPOST } from '../app/api/node0/register/route.js';
 import { computeBlockHash, signBlockPayload, signConsensusPayload } from '../lib/chain-security.js';
 import { getLiveNode0State } from '../lib/node0.js';
+import { readRegisteredPeers, upsertRegisteredPeer } from '../lib/node0-registry.js';
 import { createWalletKeypair } from '../lib/transaction-security.js';
 
 const CONTACT_ENV_KEYS = [
@@ -274,6 +275,32 @@ test('node0 registration rejects requests without the configured secret', async 
     await rm(registryDir, { recursive: true, force: true });
     delete process.env.STREAMCHAIN_NODE0_REGISTRY_DIR;
     delete process.env.STREAMCHAIN_NODE0_REGISTRATION_SECRET;
+    delete globalThis.__streamchainNode0Registry;
+  }
+});
+
+test('node0 registry falls back to tmp storage when configured directory is not writable', async () => {
+  const originalVercel = process.env.VERCEL;
+  delete globalThis.__streamchainNode0Registry;
+  process.env.VERCEL = '1';
+  process.env.STREAMCHAIN_NODE0_REGISTRY_DIR = '/vercel';
+
+  try {
+    await upsertRegisteredPeer({
+      url: 'https://peer-fallback.example.com',
+      status: 'verified',
+      registeredAt: new Date().toISOString(),
+    });
+
+    const peers = await readRegisteredPeers();
+    assert.ok(peers.some((peer) => peer.url === 'https://peer-fallback.example.com'));
+  } finally {
+    if (originalVercel === undefined) {
+      delete process.env.VERCEL;
+    } else {
+      process.env.VERCEL = originalVercel;
+    }
+    delete process.env.STREAMCHAIN_NODE0_REGISTRY_DIR;
     delete globalThis.__streamchainNode0Registry;
   }
 });

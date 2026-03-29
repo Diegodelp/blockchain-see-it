@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { createSelfHostedBundle } from '@/lib/install-bundle';
+import { getSelfHostedBundle } from '@/lib/install-bundle';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const bundle = await createSelfHostedBundle();
+    const bundle = await getSelfHostedBundle();
     return new NextResponse(bundle, {
       headers: {
         'Content-Type': 'application/gzip',
