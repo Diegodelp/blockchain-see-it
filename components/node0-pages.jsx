@@ -285,6 +285,7 @@ export function Node0NetworkPage({ state, references }) {
     aggregateFeatured: 0,
     aggregateTreasuryBalance: 0,
   };
+  const registrations = state.registrations || [];
   return (
     <Node0Shell
       title="Monitorea la red desde una página dedicada a peers, health y referencias públicas."
@@ -320,6 +321,34 @@ export function Node0NetworkPage({ state, references }) {
         <div className="proofBox">
           <strong>Variable de configuración</strong>
           <code>STREAMCHAIN_NODE0_PEERS=http://peer-a:3000,http://peer-b:3000</code>
+        </div>
+      </section>
+      <section className="panel">
+        <SectionHeader
+          eyebrow="Live registry"
+          title="Registro público de nodos auto-registrados"
+          description="Estos nodos pasaron por la verificación de `POST /api/node0/register` (export, manifest e integrity) y quedan visibles para transparencia operativa."
+          badge="Public registry"
+        />
+        <div className="tableWrap">
+          <table className="dataTable">
+            <thead><tr><th>URL</th><th>Estado</th><th>Auth</th><th>Registrado</th><th>Integrity</th></tr></thead>
+            <tbody>
+              {registrations.length > 0 ? registrations.map((peer) => (
+                <tr key={peer.url}>
+                  <td className="mono">{peer.url}</td>
+                  <td>{peer.status || 'verified'}</td>
+                  <td>{peer.authorizationMode || 'public-verified'}</td>
+                  <td>{formatDate(peer.verifiedAt || peer.registeredAt)}</td>
+                  <td className="mono">{peer.integrityHash || '—'}</td>
+                </tr>
+              )) : (
+                <tr>
+                  <td colSpan={5}>Todavía no hay registros visibles en este runtime.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </section>
       <section className="panel">
